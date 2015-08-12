@@ -189,11 +189,25 @@ class Currency {
 		return number_format(round($value, (int) $dec), (int) $dec, '.', '');
 	}
 
+	/**
+	 * Currency round function
+	 *
+	 * @param $number
+	 * @param int $decimal_place
+	 * @param null $currency
+	 * @return mixed
+	 */
 	public function rounded($number, $decimal_place = 0, $currency = null)
 	{
 		return $this->style( $number, $currency, '%symbol%', false, '', null, $decimal_place );
 	}
 
+	/**
+	 * Get currency symbol
+	 *
+	 * @param bool|false $right
+	 * @return mixed
+	 */
 	public function getCurrencySymbol($right = false)
 	{
 		if ($right)
@@ -204,11 +218,22 @@ class Currency {
 		return $this->currencies[$this->code]['symbol_left'];
 	}
 
+	/**
+	 * Checks whether this currency is available in the database
+	 *
+	 * @param $currency
+	 * @return bool
+	 */
 	public function hasCurrency($currency)
 	{
 		return isset($this->currencies[$currency]);
 	}
 
+	/**
+	 * Set base currency in session
+	 *
+	 * @param $currency
+	 */
 	public function setCurrency($currency)
 	{
 		$this->code = $currency;
@@ -252,67 +277,20 @@ class Currency {
 		}
 	}
 
+	/**
+	 * Convert value from one currency to another currency
+	 *
+	 * @param $number
+	 * @param $fromCurrencyCode
+	 * @param $toCurrencyCode
+	 * @return float
+	 */
 	public function convert($number, $fromCurrencyCode, $toCurrencyCode)
 	{
 		$fromCurrency = $this->getCurrency($fromCurrencyCode);
 		$toCurrency = $this->getCurrency($toCurrencyCode);
 
 		return round($number / $fromCurrency['value'] * $toCurrency['value'], 2);
-	}
-
-	// Same as format, but without any value conversion
-	public function style($number, $currency = null, $decimal_place = null)
-	{
-		$symbol_style = '%symbol%';
-
-		if ($currency && $this->hasCurrency($currency))
-		{
-			$symbol_left    = $this->currencies[$currency]['symbol_left'];
-			$symbol_right   = $this->currencies[$currency]['symbol_right'];
-			if (is_null($decimal_place)) $decimal_place  = $this->currencies[$currency]['decimal_place'];
-			$decimal_point  = $this->currencies[$currency]['decimal_point'];
-			$thousand_point = $this->currencies[$currency]['thousand_point'];
-		}
-		else
-		{
-			$symbol_left    = $this->currencies[$this->code]['symbol_left'];
-			$symbol_right   = $this->currencies[$this->code]['symbol_right'];
-			if (is_null($decimal_place)) $decimal_place  = $this->currencies[$this->code]['decimal_place'];
-			$decimal_point  = $this->currencies[$this->code]['decimal_point'];
-			$thousand_point = $this->currencies[$this->code]['thousand_point'];
-
-			$currency = $this->code;
-		}
-
-		$value = $number;
-
-		$string = '';
-
-		if ($symbol_left)
-		{
-			$string .= str_replace('%symbol%', $symbol_left, $symbol_style);
-
-			if ($this->app['config']['currency.use_space'])
-			{
-				$string .= ' ';
-			}
-		}
-
-		$precision = (int) $decimal_place;
-
-		$string .= number_format(round($value, (int) $precision), (int) $decimal_place, $decimal_point, $thousand_point);
-
-		if ($symbol_right)
-		{
-			if ($this->app['config']['currency.use_space'])
-			{
-				$string .= ' ';
-			}
-
-			$string .= str_replace('%symbol%', $symbol_right, $symbol_style);
-		}
-
-		return $string;
 	}
 
 	/**
