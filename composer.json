@@ -1,7 +1,7 @@
 {
-    "name": "casinelli/currency",
+    "name": "elv1ss/currency",
     "description": "Handles currency for Laravel 5.",
-    "keywords": ["laravel", "laravel5", "currency", "money", "exchange rate"],
+    "keywords": ["laravel", "laravel5", "currency", "money", "exchange rate", "rbc"],
 	"license": "BSD 2-Clause",
     "authors": [
         {
@@ -11,6 +11,10 @@
         {
             "name": "Giovanni Casinelli",
             "email": "giovanni.casinelli@gmail.com"
+        },
+        {
+            "name": "Andrei Rahozik",
+            "email": "rogozik.andrey@gmail.com"
         }
     ],
     "require": {
@@ -21,7 +25,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Casinelli\\Currency": "src/"
+            "elv1ss\\Currency": "src/"
         }
     },
     "extra": {

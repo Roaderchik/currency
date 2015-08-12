@@ -1,6 +1,6 @@
 # Currency for Laravel 5
 
-[![Latest Stable Version](https://poser.pugx.org/casinelli/currency/v/stable.png)](https://packagist.org/packages/casinelli/currency) [![Total Downloads](https://poser.pugx.org/casinelli/currency/downloads.png)](https://packagist.org/packages/casinelli/currency)
+[![Latest Stable Version](https://poser.pugx.org/elv1ss/currency/v/stable.png)](https://packagist.org/packages/elv1ss/currency) [![Total Downloads](https://poser.pugx.org/elv1ss/currency/downloads.png)](https://packagist.org/packages/elv1ss/currency)
 
 Handles currency for Laravel 5.
 
@@ -8,13 +8,13 @@ Handles currency for Laravel 5.
 
 ## Installation
 
-- [Currency on Packagist](https://packagist.org/packages/casinelli/currency)
-- [Currency on GitHub](https://github.com/casinelli/laravel-currency)
+- [Currency on Packagist](https://packagist.org/packages/elv1ss/currency)
+- [Currency on GitHub](https://github.com/elv1ss/laravel-currency)
 
 To get the latest version of Currency simply require it in your `composer.json` file.
 
 ~~~
-"casinelli/currency": "dev-master"
+"elv1ss/currency": "dev-master"
 ~~~
 
 You'll then need to run `composer install` to download it and have the autoloader updated.
@@ -24,7 +24,7 @@ Once Currency is installed you need to register the service provider with the ap
 ~~~php
 'providers' => [
 
-    'Casinelli\Currency\CurrencyServiceProvider',
+    'elv1ss\Currency\CurrencyServiceProvider',
 
 ]
 ~~~
@@ -34,7 +34,7 @@ Currency also ships with a facade which provides the static syntax for creating 
 ~~~php
 'aliases' => [
 
-    'Currency' => 'Casinelli\Currency\Facades\Currency',
+    'Currency' => 'elv1ss\Currency\Facades\Currency',
 
 ]
 ~~~
@@ -62,6 +62,12 @@ php artisan currency:update --openexchangerates
 ~~~
 
  > Note: An API key is needed to use [OpenExchangeRates.org](http://OpenExchangeRates.org). Add yours to the config file.
+
+ To upate from RBC.RU
+
+ ~~~
+ php artisan currency:update --rbc
+ ~~~aw  QAWZ
 
 ### Cleanup
 
