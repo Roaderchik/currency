@@ -9,7 +9,7 @@ Handles currency for Laravel 5.
 ## Installation
 
 - [Currency on Packagist](https://packagist.org/packages/elv1ss/currency)
-- [Currency on GitHub](https://github.com/elv1ss/Currency)
+- [Currency on GitHub](https://github.com/elv1ss/currency)
 
 To get the latest version of Currency simply require it in your `composer.json` file.
 
@@ -62,9 +62,9 @@ php artisan currency:update --openexchangerates
 > Note: An API key is needed to use [OpenExchangeRates.org](http://OpenExchangeRates.org). Add yours to the config file.
 ~~~
 
-To update from www.rbc.ru
+To update from www.cbr.ru
 ~~~
-php artisan currency:update --rbc
+php artisan currency:update --cbr
 ~~~
 
 ### Cleanup
