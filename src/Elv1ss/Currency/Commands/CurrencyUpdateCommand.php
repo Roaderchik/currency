@@ -1,4 +1,4 @@
-<?php namespace Elv1ss\Currency\Commands;
+<?php namespace elv1ss\Currency\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -164,11 +164,43 @@ class CurrencyUpdateCommand extends Command {
 
 		$xml = $this->request('http://www.cbr.ru/scripts/XML_daily.asp?date_req=' . date('d/m/Y'));
 		$currencyRates = new \SimpleXMLElement($xml);
+
+
+		$default = 1;
+		$rates = array();
+		$needed = $this->app['config']['currency.needed'];
 		foreach($currencyRates->Valute as $data)
 		{
-				$this->app['db']->table($this->table_name)
-				->where('code', $data->CharCode)
-				->update(['value' => (float)str_replace(",", ".", $data->Value) / (float)$data->Nominal]);
+			if (in_array($data->CharCode, $needed))
+			{
+				if ($data->CharCode == $defaultCurrency)
+				{
+					$default = str_replace(",", ".", $data->Value) / (float)$data->Nominal;
+					$rates[] = array(
+						'code' => $defaultCurrency,
+						'value' => 1
+					);
+				}
+				else
+				{
+					$rates[] = array(
+						'code' => $data->CharCode,
+						'value' => (str_replace(",", ".", $data->Value) / (float)$data->Nominal)
+					);
+				}
+			}
+		}
+
+		$rates[] = array(
+			'code' => 'RUB',
+			'value' => $default
+		);
+
+		foreach($rates as $rate)
+		{
+			$this->app['db']->table($this->table_name)
+				->where('code', $rate['code'])
+				->update(['value' => in_array($rate['code'], ['RUB', $defaultCurrency]) ? $rate['value'] : $default / $rate['value']]);
 		}
 
 		Cache::forget('currency');

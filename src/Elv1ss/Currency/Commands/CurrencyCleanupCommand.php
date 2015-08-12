@@ -1,4 +1,4 @@
-<?php namespace Elv1ss\Currency\Commands;
+<?php namespace elv1ss\Currency\Commands;
 
 use Illuminate\Console\Command;
 
