@@ -9,7 +9,7 @@ Handles currency for Laravel 5.
 ## Installation
 
 - [Currency on Packagist](https://packagist.org/packages/elv1ss/currency)
-- [Currency on GitHub](https://github.com/elv1ss/laravel-currency)
+- [Currency on GitHub](https://github.com/elv1ss/Currency)
 
 To get the latest version of Currency simply require it in your `composer.json` file.
 
@@ -55,19 +55,17 @@ By default exchange rates are updated from Finance Yahoo.com.
 php artisan currency:update
 ~~~
 
-To upate from OpenExchangeRates.org
-
+To update from OpenExchangeRates.org
 ~~~
 php artisan currency:update --openexchangerates
 ~~~
+> Note: An API key is needed to use [OpenExchangeRates.org](http://OpenExchangeRates.org). Add yours to the config file.
+~~~
 
- > Note: An API key is needed to use [OpenExchangeRates.org](http://OpenExchangeRates.org). Add yours to the config file.
-
- To upate from RBC.RU
-
- ~~~
- php artisan currency:update --rbc
- ~~~aw  QAWZ
+To update from www.rbc.ru
+~~~
+php artisan currency:update --rbc
+~~~
 
 ### Cleanup
 

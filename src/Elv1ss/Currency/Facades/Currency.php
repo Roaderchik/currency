@@ -1,4 +1,4 @@
-<?php namespace Casinelli\Currency\Facades;
+<?php namespace Elv1ss\Currency\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

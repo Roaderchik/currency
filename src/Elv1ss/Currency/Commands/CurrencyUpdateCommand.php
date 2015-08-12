@@ -1,4 +1,4 @@
-<?php namespace Casinelli\Currency\Commands;
+<?php namespace Elv1ss\Currency\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -72,6 +72,10 @@ class CurrencyUpdateCommand extends Command {
 			// Get rates
 			$this->updateFromOpenExchangeRates($defaultCurrency, $api);
 		}
+		else if ($this->input->getOption('cbr'))
+		{
+			$this->updateFromCBRRates($defaultCurrency);
+		}
 		else
 		{
 			// Get rates
@@ -115,7 +119,7 @@ class CurrencyUpdateCommand extends Command {
 				}
 			}
 
-			Cache::forget('casinelli.currency');
+			Cache::forget('currency');
 		}
 
 		$this->info('Update!');
@@ -149,7 +153,25 @@ class CurrencyUpdateCommand extends Command {
 				]);
 		}
 
-		Cache::forget('casinelli.currency');
+		Cache::forget('currency');
+
+		$this->info('Update!');
+	}
+
+	private function updateFromCBRRates($defaultCurrency)
+	{
+		$this->info('Updating currency exchange rates from www.cbr.ru...');
+
+		$xml = $this->request('http://www.cbr.ru/scripts/XML_daily.asp?date_req=' . date('d/m/Y'));
+		$currencyRates = new \SimpleXMLElement($xml);
+		foreach($currencyRates->Valute as $data)
+		{
+				$this->app['db']->table($this->table_name)
+				->where('code', $data->CharCode)
+				->update(['value' => (float)str_replace(",", ".", $data->Value) / (float)$data->Nominal]);
+		}
+
+		Cache::forget('currency');
 
 		$this->info('Update!');
 	}
@@ -181,7 +203,8 @@ class CurrencyUpdateCommand extends Command {
 	protected function getOptions()
 	{
 		return [
-			['openexchangerates', 'o', InputOption::VALUE_NONE, 'Get rates from OpenExchangeRates.org']
+			['openexchangerates', 'o', InputOption::VALUE_NONE, 'Get rates from OpenExchangeRates.org'],
+			['cbr', 'c', InputOption::VALUE_NONE, 'Get rates from cbr.ru']
 		];
 	}
 }

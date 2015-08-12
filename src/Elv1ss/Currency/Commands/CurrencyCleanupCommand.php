@@ -1,4 +1,4 @@
-<?php namespace Casinelli\Currency\Commands;
+<?php namespace Elv1ss\Currency\Commands;
 
 use Illuminate\Console\Command;
 
@@ -44,7 +44,7 @@ class CurrencyCleanupCommand extends Command {
 	 */
 	public function fire()
 	{
-		Cache::forget('casinelli.currency');
+		Cache::forget('currency');
 
 		$this->info('Currency cache cleaned.');
 	}

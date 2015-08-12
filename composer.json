@@ -5,10 +5,6 @@
 	"license": "BSD 2-Clause",
     "authors": [
         {
-            "name": "Daniel Stainback",
-            "email": "daniel@lyften.com"
-        },
-        {
             "name": "Giovanni Casinelli",
             "email": "giovanni.casinelli@gmail.com"
         },
