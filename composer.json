@@ -1,9 +1,13 @@
 {
     "name": "elv1ss/currency",
     "description": "Handles currency for Laravel 5.",
-    "keywords": ["laravel", "laravel5", "currency", "money", "exchange rate", "rbc"],
+    "keywords": ["laravel", "laravel5", "currency", "money", "exchange rate", "RUB", "cbr"],
 	"license": "BSD 2-Clause",
     "authors": [
+        {
+            "name": "Daniel Stainback",
+            "email": "daniel@lyften.com"
+        },
         {
             "name": "Giovanni Casinelli",
             "email": "giovanni.casinelli@gmail.com"
