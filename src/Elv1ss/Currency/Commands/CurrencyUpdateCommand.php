@@ -200,7 +200,10 @@ class CurrencyUpdateCommand extends Command {
 		{
 			$this->app['db']->table($this->table_name)
 				->where('code', $rate['code'])
-				->update(['value' => in_array($rate['code'], ['RUB', $defaultCurrency]) ? $rate['value'] : $default / $rate['value']]);
+				->update([
+					'value' => in_array($rate['code'], ['RUB', $defaultCurrency]) ? $rate['value'] : $default / $rate['value'],
+					'updated_at' => new DateTime('now')
+				]);
 		}
 
 		Cache::forget('currency');
