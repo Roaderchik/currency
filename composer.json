@@ -1,7 +1,7 @@
 {
     "name": "elv1ss/currency",
     "description": "Handles currency for Laravel 5.",
-    "keywords": ["laravel", "laravel5", "currency", "money", "exchange rate", "RUB", "cbr"],
+    "keywords": ["laravel", "laravel5", "currency", "money", "exchange rate", "RUB", "cbr", "BYR", "nbrb"],
 	"license": "BSD 2-Clause",
     "authors": [
         {
