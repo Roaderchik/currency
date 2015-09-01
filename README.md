@@ -62,9 +62,14 @@ php artisan currency:update --openexchangerates
 > Note: An API key is needed to use [OpenExchangeRates.org](http://OpenExchangeRates.org). Add yours to the config file.
 ~~~
 
-To update from www.cbr.ru
+To update from The Central Bank of the Russian Federation (www.cbr.ru)
 ~~~
 php artisan currency:update --cbr
+~~~
+
+To update from National Bank of the Republic of Belarus (www.nbrb.by)
+~~~
+php artisan currency:update --nbrb
 ~~~
 
 ### Cleanup

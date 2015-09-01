@@ -76,6 +76,10 @@ class CurrencyUpdateCommand extends Command {
 		{
 			$this->updateFromCBRRates($defaultCurrency);
 		}
+		else if ($this->input->getOption('nbrb'))
+		{
+			$this->updateFromNBRBRates($defaultCurrency);
+		}
 		else
 		{
 			// Get rates
@@ -158,24 +162,24 @@ class CurrencyUpdateCommand extends Command {
 		$this->info('Update!');
 	}
 
-	private function updateFromCBRRates($defaultCurrency)
+	private function processXml($defaultCurrency, $resource = 'cbr')
 	{
-		$this->info('Updating currency exchange rates from www.cbr.ru...');
+		$config = $this->app['config']['currency.' . $resource];
+		$this->info($config['description']);
 
-		$xml = $this->request('http://www.cbr.ru/scripts/XML_daily.asp?date_req=' . date('d/m/Y'));
+		$xml = $this->request($config['url'] . date($config['date_format']));
 		$currencyRates = new \SimpleXMLElement($xml);
-
 
 		$default = 1;
 		$rates = array();
 		$needed = $this->app['config']['currency.needed'];
-		foreach($currencyRates->Valute as $data)
+		foreach($currencyRates->$config['currency'] as $data)
 		{
 			if (in_array($data->CharCode, $needed))
 			{
 				if ($data->CharCode == $defaultCurrency)
 				{
-					$default = str_replace(",", ".", $data->Value) / (float)$data->Nominal;
+					$default = str_replace(",", ".", $data->$config['value']) / (float)$data->$config['nominal'];
 					$rates[] = array(
 						'code' => $defaultCurrency,
 						'value' => 1
@@ -185,14 +189,14 @@ class CurrencyUpdateCommand extends Command {
 				{
 					$rates[] = array(
 						'code' => $data->CharCode,
-						'value' => (str_replace(",", ".", $data->Value) / (float)$data->Nominal)
+						'value' => (str_replace(",", ".", $data->$config['value']) / (float)$data->$config['nominal'])
 					);
 				}
 			}
 		}
 
 		$rates[] = array(
-			'code' => 'RUB',
+			'code' => $config['code'],
 			'value' => $default
 		);
 
@@ -201,11 +205,23 @@ class CurrencyUpdateCommand extends Command {
 			$this->app['db']->table($this->table_name)
 				->where('code', $rate['code'])
 				->update([
-					'value' => in_array($rate['code'], ['RUB', $defaultCurrency]) ? $rate['value'] : $default / $rate['value'],
+					'value' => in_array($rate['code'], [$config['code'], $defaultCurrency]) ? $rate['value'] : $default / $rate['value'],
 					'updated_at' => new DateTime('now')
 				]);
 		}
+	}
 
+	private function updateFromCBRRates($defaultCurrency)
+	{
+		$this->processXml($defaultCurrency);
+		Cache::forget('currency');
+
+		$this->info('Update!');
+	}
+
+	private function updateFromNBRBRates($defaultCurrency)
+	{
+		$this->processXml($defaultCurrency, 'nbrb');
 		Cache::forget('currency');
 
 		$this->info('Update!');
@@ -239,7 +255,8 @@ class CurrencyUpdateCommand extends Command {
 	{
 		return [
 			['openexchangerates', 'o', InputOption::VALUE_NONE, 'Get rates from OpenExchangeRates.org'],
-			['cbr', 'c', InputOption::VALUE_NONE, 'Get rates from cbr.ru']
+			['cbr', 'cbr', InputOption::VALUE_NONE, 'Get rates from www.cbr.ru'],
+			['nbrb', 'nbrb', InputOption::VALUE_NONE, 'Get rates from www.nbrb.by'],
 		];
 	}
 }
