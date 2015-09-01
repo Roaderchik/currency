@@ -80,6 +80,16 @@ Used to clean the Laravel cached exchanged rates and refresh it from the databas
 php artisan currency:cleanup
 ~~~
 
+## Convert
+~~~php
+// for example convert USD to EUR
+echo Currency::convert(100, 'USD', 'EUR');
+~~~
+
+- The first parameter is the amount.
+- The second parameter is the ISO 4217 From currency code.
+- The third parameter is the ISO 4217 To currency code.
+
 ## Rendering
 
 Using the Blade helper
