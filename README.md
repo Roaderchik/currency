@@ -1,20 +1,20 @@
-# Currency for Laravel 5
+# Currency for Laravel 5.8.
 
 [![Latest Stable Version](https://poser.pugx.org/elv1ss/currency/v/stable.png)](https://packagist.org/packages/elv1ss/currency) [![Total Downloads](https://poser.pugx.org/elv1ss/currency/downloads.png)](https://packagist.org/packages/elv1ss/currency)
 
-Handles currency for Laravel 5.
+Handles currency for Laravel 5.8.
 
 ----------
 
 ## Installation
 
-- [Currency on Packagist](https://packagist.org/packages/elv1ss/currency)
-- [Currency on GitHub](https://github.com/elv1ss/currency)
+- [Currency on Packagist](https://packagist.org/packages/roaderchik/currency)
+- [Currency on GitHub](https://github.com/roaderchik/currency)
 
 To get the latest version of Currency simply require it in your `composer.json` file.
 
 ~~~
-"elv1ss/currency": "dev-master"
+"roaderchik/currency": "dev-master"
 ~~~
 
 You'll then need to run `composer install` to download it and have the autoloader updated.
@@ -24,7 +24,7 @@ Once Currency is installed you need to register the service provider with the ap
 ~~~php
 'providers' => [
 
-    elv1ss\Currency\CurrencyServiceProvider::class,
+    roaderchik\Currency\CurrencyServiceProvider::class,
 
 ]
 ~~~
@@ -34,7 +34,7 @@ Currency also ships with a facade which provides the static syntax for creating 
 ~~~php
 'aliases' => [
 
-    'Currency'  => elv1ss\Currency\Facades\Currency::class,
+    'Currency'  => roaderchik\Currency\Facades\Currency::class,
 
 ]
 ~~~
@@ -83,7 +83,7 @@ php artisan currency:cleanup
 ## Convert
 ~~~php
 // for example convert USD to EUR
-echo Currency::convert(100, 'USD', 'EUR');
+echo /Currency::convert(100, 'USD', 'EUR');
 ~~~
 
 - The first parameter is the amount.
@@ -102,16 +102,16 @@ Using the Blade helper
 - *optional* The second parameter is the ISO 4217 currency code. If not set it will use the default set in the config file.
 
 ~~~php
-echo Currency::format(12.00, 'USD');
+echo /Currency::format(12.00, 'USD');
 ~~~
 
 For easy output of rounded values:
 
 ~~~php
-echo Currency::rounded(12.80);  // Will output $12
+echo /Currency::rounded(12.80);  // Will output $12
 
 // All the parameters
-echo Currency::rounded(12.80, 0, 'USD');
+echo /Currency::rounded(12.80, 0, 'USD');
 ~~~
 
 ## Change Log
