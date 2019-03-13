@@ -2,7 +2,7 @@
 
 use DB;
 use Cache;
-use Input;
+use Illuminate\Support\Facades\Request;
 use Cookie;
 use Session;
 
@@ -43,7 +43,7 @@ class Currency {
 		$this->setCacheCurrencies();
 
 		// Check for a user defined currency
-		if (Input::get('currency') && array_key_exists(Input::get('currency'), $this->currencies))
+		if (Request::get('currency') && array_key_exists(Request::get('currency'), $this->currencies))
 		{
 			$this->setCurrency(Input::get('currency'));
 		}
@@ -240,7 +240,7 @@ class Currency {
 
 		if (Session::get('currency') != $currency)
 		{
-			Session::set('currency', $currency);
+			Session::put('currency', $currency);
 		}
 
 		if (Cookie::get('currency') != $currency)

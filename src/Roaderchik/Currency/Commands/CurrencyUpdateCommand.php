@@ -1,4 +1,4 @@
-<?php namespace elv1ss\Currency\Commands;
+<?php namespace roaderchik\Currency\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
@@ -37,6 +37,15 @@ class CurrencyUpdateCommand extends Command {
 	 */
 	protected $table_name;
 
+	/**
+	 * Create a handle.
+	 *
+	 * @return void
+	 */
+	public function handle()
+    {
+            return $this->fire();
+	} 
 	/**
 	 * Create a new command instance.
 	 *
@@ -169,17 +178,18 @@ class CurrencyUpdateCommand extends Command {
 
 		$xml = $this->request($config['url'] . date($config['date_format']));
 		$currencyRates = new \SimpleXMLElement($xml);
-
+			app('log')->info($currencyRates);
 		$default = 1;
 		$rates = array();
 		$needed = $this->app['config']['currency.needed'];
-		foreach($currencyRates->$config['currency'] as $data)
+		app('log')->info($needed);
+		foreach($currencyRates->{$config['currency']} as $data)
 		{
 			if (in_array($data->CharCode, $needed))
 			{
 				if ($data->CharCode == $defaultCurrency)
 				{
-					$default = str_replace(",", ".", $data->$config['value']) / (float)$data->$config['nominal'];
+					$default = str_replace(",", ".", $data->{$config['value']}) / (float)$data->{$config['nominal']};
 					$rates[] = array(
 						'code' => $defaultCurrency,
 						'value' => 1
@@ -189,7 +199,7 @@ class CurrencyUpdateCommand extends Command {
 				{
 					$rates[] = array(
 						'code' => $data->CharCode,
-						'value' => (str_replace(",", ".", $data->$config['value']) / (float)$data->$config['nominal'])
+						'value' => (str_replace(",", ".", $data->{$config['value']}) / (float)$data->{$config['nominal']})
 					);
 				}
 			}

@@ -1,6 +1,6 @@
 {
-    "name": "elv1ss/currency",
-    "description": "Handles currency for Laravel 5.",
+    "name": "roaderchik/currency",
+    "description": "Handles currency for Laravel 5.8",
     "keywords": ["laravel", "laravel5", "currency", "money", "exchange rate", "RUB", "cbr", "BYR", "nbrb"],
 	"license": "BSD 2-Clause",
     "authors": [
@@ -11,21 +11,25 @@
         {
             "name": "Giovanni Casinelli",
             "email": "giovanni.casinelli@gmail.com"
-        },
+        },        
         {
             "name": "Andrei Rahozik",
             "email": "rogozik.andrey@gmail.com"
+        },
+        {
+            "name": "Tsigvintsev Yurii",
+            "email": "web21veka@gmail.com"
         }
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "~5.0",
-        "illuminate/view": "~5.0",
-        "illuminate/cache": "~5.0"
+        "illuminate/support": ">=5.5",
+        "illuminate/view": ">=5.5",
+        "illuminate/cache": ">=5.5"
     },
     "autoload": {
         "psr-0": {
-            "elv1ss\\Currency": "src/"
+            "roaderchik\\Currency": "src/"
         }
     },
     "extra": {

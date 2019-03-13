@@ -1,4 +1,4 @@
-<?php namespace elv1ss\Currency\Commands;
+<?php namespace roaderchik\Currency\Commands;
 
 use Illuminate\Console\Command;
 
@@ -27,6 +27,16 @@ class CurrencyCleanupCommand extends Command {
 	 */
 	protected $app;
 
+	/**
+	 * Create a handle.
+	 *
+	 * @return void
+	 */
+	public function handle()
+    {
+            return $this->fire();
+	} 
+	
 	/**
 	 * Create a new command instance.
 	 *
