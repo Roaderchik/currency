@@ -16,7 +16,9 @@ To get the latest version of Currency simply require it in your `composer.json` 
 ~~~
 "roaderchik/currency": "dev-master"
 ~~~
-
+~~~
+composer require "roaderchik/currency"
+~~~
 You'll then need to run `composer install` to download it and have the autoloader updated.
 
 Once Currency is installed you need to register the service provider with the application. Open up `app/config/app.php` and find the `providers` key.
