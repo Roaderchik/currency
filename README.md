@@ -1,6 +1,6 @@
 # Currency for Laravel 5.8.
 
-[![Latest Stable Version](https://poser.pugx.org/roaderchik/currency/v/stable.png)](https://packagist.org/packages/roaderchik/currency) [![Total Downloads](https://poser.pugx.org/roaderchik/currency/downloads.png)](https://packagist.org/packages/roaderchik/currency)
+[![Latest Stable Version](https://poser.pugx.org/roaderchik/currency/v/stable)](https://packagist.org/packages/roaderchik/currency)
 
 Handles currency for Laravel 5.8.
 
