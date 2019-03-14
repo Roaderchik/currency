@@ -1,4 +1,4 @@
-<?php namespace elv1ss\Currency;
+<?php namespace Roaderchik\Currency;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -1,4 +1,4 @@
-<?php namespace roaderchik\Currency\Commands;
+<?php namespace Roaderchik\Currency\Commands;
 
 use Illuminate\Console\Command;
 

@@ -1,4 +1,4 @@
-<?php namespace Elv1ss\Currency\Facades;
+<?php namespace Roaderchik\Currency\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
